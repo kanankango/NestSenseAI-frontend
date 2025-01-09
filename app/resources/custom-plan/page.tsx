@@ -56,6 +56,9 @@ export default function CustomPlan() {
     "Enhance Nutrition"
   ]
 
+  interface HeaderProps {
+    showNavItems: boolean;
+  }
   return (
     <div className="min-h-screen bg-background">
       <Header showNavItems={true} />

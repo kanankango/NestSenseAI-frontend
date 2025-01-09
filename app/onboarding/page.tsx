@@ -13,9 +13,6 @@ export default function Onboarding() {
     country: '',
     state: '',
     city: '',
-    birthType: '',
-    durationSincePregnancy: '',
-    weight: '',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -100,49 +97,6 @@ export default function Onboarding() {
                   id="city"
                   name="city"
                   value={formData.city}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-md"
-                  required
-                />
-              </div>
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <div className="mb-4">
-                <label htmlFor="birthType" className="block text-gray-700 mb-2">Type of Birth</label>
-                <select
-                  id="birthType"
-                  name="birthType"
-                  value={formData.birthType}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-md"
-                  required
-                >
-                  <option value="">Select...</option>
-                  <option value="vaginal">Vaginal</option>
-                  <option value="c-section">C-Section</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label htmlFor="durationSincePregnancy" className="block text-gray-700 mb-2">Duration Since Pregnancy (weeks)</label>
-                <input
-                  type="number"
-                  id="durationSincePregnancy"
-                  name="durationSincePregnancy"
-                  value={formData.durationSincePregnancy}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border rounded-md"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="weight" className="block text-gray-700 mb-2">Current Weight (kg)</label>
-                <input
-                  type="number"
-                  id="weight"
-                  name="weight"
-                  value={formData.weight}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   required

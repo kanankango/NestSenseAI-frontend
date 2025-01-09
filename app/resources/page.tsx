@@ -1,10 +1,10 @@
 'use client'
 
-import Link from 'next/link'
-import { Header } from '@/components/Header'
+import { SidebarLayout } from '@/components/SidebarLayout'
 import { FeatureCard } from '@/components/ui/feature-card'
 import { Button } from '@/components/ui/button'
-import { Apple, Activity, Moon, Brain, Baby, Heart, ChevronLeft } from 'lucide-react'
+import { Apple, Activity, Moon, Brain, Baby, Heart } from 'lucide-react'
+import { GradientText } from '@/components/GradientText'
 
 const resources = [
   {
@@ -47,56 +47,43 @@ const resources = [
 
 export default function Resources() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header showNavItems={true} />
-      
-      <main className="container mx-auto px-4 pt-24 pb-12">
-        <div className="mb-6">
-          <Button variant="ghost" asChild>
-            <Link href="/dashboard" className="flex items-center text-muted-foreground hover:text-foreground">
-              <ChevronLeft className="mr-2 h-4 w-4" />
-              Back to Dashboard
-            </Link>
-          </Button>
-        </div>
+    <SidebarLayout>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold animate-fade-in mb-4 md:mb-0">
+          <GradientText>Resource Hub</GradientText>
+        </h1>
+        <Button
+          variant="outline"
+          className="animate-fade-in"
+          asChild
+        >
+          <a href="/resources/custom-plan">Create Custom Plan</a>
+        </Button>
+      </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold animate-fade-in mb-4 md:mb-0">
-            Resource Hub
-          </h1>
-          <Button
-            variant="outline"
-            className="animate-fade-in"
-            asChild
-          >
-            <Link href="/resources/custom-plan">Create Custom Plan</Link>
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {resources.map((resource, index) => (
-            <FeatureCard
-              key={index}
-              icon={resource.icon}
-              title={resource.title}
-              description={resource.description}
-              action={
-                <Button
-                  variant="secondary"
-                  className="w-full group"
-                  asChild
-                >
-                  <Link href={resource.href}>
-                    Learn More
-                    <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                  </Link>
-                </Button>
-              }
-            />
-          ))}
-        </div>
-      </main>
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {resources.map((resource, index) => (
+          <FeatureCard
+            key={index}
+            icon={resource.icon}
+            title={resource.title}
+            description={resource.description}
+            action={
+              <Button
+                variant="secondary"
+                className="w-full group"
+                asChild
+              >
+                <a href={resource.href}>
+                  Learn More
+                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+              </Button>
+            }
+          />
+        ))}
+      </div>
+    </SidebarLayout>
   )
 }
 

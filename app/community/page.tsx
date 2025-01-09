@@ -1,4 +1,6 @@
-import { Header } from '../../components/Header'
+import { SidebarLayout } from '@/components/SidebarLayout'
+import { GradientText } from '@/components/GradientText'
+import { Button } from '@/components/ui/button'
 
 const forumTopics = [
   { title: 'First-Time Moms Support', posts: 152 },
@@ -10,21 +12,20 @@ const forumTopics = [
 
 export default function Community() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow container mx-auto px-6 py-12">
-        <h1 className="text-3xl font-bold text-pink-600 mb-8">Community Support</h1>
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {forumTopics.map((topic, index) => (
-            <div key={index} className="p-4 border-b last:border-b-0">
-              <h2 className="text-xl font-semibold mb-2">{topic.title}</h2>
-              <p className="text-gray-600">{topic.posts} posts</p>
-              <button className="mt-2 text-pink-600 hover:text-pink-700">Join Discussion</button>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
+    <SidebarLayout>
+      <h1 className="text-3xl font-bold mb-8">
+        <GradientText>Community Support</GradientText>
+      </h1>
+      <div className="bg-card rounded-lg shadow-md overflow-hidden">
+        {forumTopics.map((topic, index) => (
+          <div key={index} className="p-4 border-b last:border-b-0">
+            <h2 className="text-xl font-semibold mb-2">{topic.title}</h2>
+            <p className="text-muted-foreground">{topic.posts} posts</p>
+            <Button variant="link" className="mt-2 text-primary hover:text-primary/80">Join Discussion</Button>
+          </div>
+        ))}
+      </div>
+    </SidebarLayout>
   )
 }
 

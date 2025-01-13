@@ -13,18 +13,58 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle authentication
-    console.log({ email, password })
-    router.push('/create-account')
+    setLoading(true)
+    setError('')
+
+    try {
+      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+      if (!backendUrl) {
+        throw new Error('Backend URL is not configured')
+      }
+
+      const endpoint = isLogin ? '/auth/login' : '/auth/register'
+      const response = await fetch(`${backendUrl}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || 'Authentication failed')
+      }
+
+      const { token } = await response.json()
+
+      // Save token to localStorage or cookies
+      localStorage.setItem('authToken', token)
+
+      // Redirect based on the action
+      router.push(isLogin ? '/dashboard' : '/create-account')
+    } catch (err: any) {
+      setError(err.message || 'An unknown error occurred')
+    } finally {
+      setLoading(false)
+    }
   }
 
+  const handleGoogleSignIn = () => {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+    if (!backendUrl) {
+      console.error('Backend URL is not configured')
+      return
+    }
+    window.location.href = `${backendUrl}/auth/google`
+  }
   return (
     <div className="min-h-screen flex flex-col gradient-bg">
       <Header />
-      
+
       <main className="flex-grow flex items-center justify-center px-4 py-16">
         <Card className="w-full max-w-md">
           <CardHeader>
@@ -57,7 +97,7 @@ export default function Auth() {
               <span className="text-sm text-muted-foreground">or</span>
             </div>
             <div className="mt-4 space-y-2">
-              <Button variant="outline" className="w-full" onClick={() => console.log('Sign in with Google')}>
+              <Button variant="outline" className="w-full" onClick={handleGoogleSignIn}>
                 <Google className="mr-2 h-4 w-4" /> Sign in with Google
               </Button>
               <Button variant="outline" className="w-full" onClick={() => console.log('Sign in with Yahoo')}>
@@ -78,4 +118,3 @@ export default function Auth() {
     </div>
   )
 }
-

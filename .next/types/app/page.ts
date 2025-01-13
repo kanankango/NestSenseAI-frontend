@@ -1,4 +1,4 @@
-// File: C:\Users\adip2\Downloads\NestSenseAI\app\page.tsx
+// File: D:\GitHub\NestSenseAI\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -3,27 +3,16 @@
 import { SidebarLayout } from '@/components/SidebarLayout'
 import { FeatureCard } from '@/components/ui/feature-card'
 import { Button } from '@/components/ui/button'
-import { Apple, Activity, Moon, Brain, Baby, Heart } from 'lucide-react'
+import { Apple, Activity, Brain, Baby, Heart } from 'lucide-react'
 import { GradientText } from '@/components/GradientText'
 
 const resources = [
   {
-    icon: <Apple className="w-8 h-8" />,
-    title: 'Nutrition Guide',
-    description: 'Essential nutrients for postpartum recovery and breastfeeding success.',
-    href: '/resources/nutrition'
-  },
-  {
-    icon: <Activity className="w-8 h-8" />,
-    title: 'Exercise Routines',
-    description: 'Safe and effective workouts designed for postpartum recovery.',
-    href: '/resources/exercise'
-  },
-  {
-    icon: <Moon className="w-8 h-8" />,
-    title: 'Sleep Tips',
-    description: 'Strategies for better sleep quality during the fourth trimester.',
-    href: '/resources/sleep'
+    icon: <Apple className="w-8 h-8 mr-2" />,
+    secondIcon: <Activity className="w-8 h-8" />,
+    title: 'Nutrition & Exercise',
+    description: 'Essential nutrients and safe workouts for postpartum recovery.',
+    href: '/resources/nutrition-exercise'
   },
   {
     icon: <Brain className="w-8 h-8" />,
@@ -36,12 +25,6 @@ const resources = [
     title: 'Baby Care',
     description: 'Expert advice on newborn care and development milestones.',
     href: '/resources/baby-care'
-  },
-  {
-    icon: <Heart className="w-8 h-8" />,
-    title: 'Self-Care',
-    description: 'Simple ways to prioritize your well-being while caring for your baby.',
-    href: '/resources/self-care'
   }
 ]
 
@@ -52,20 +35,18 @@ export default function Resources() {
         <h1 className="text-3xl md:text-4xl font-bold animate-fade-in mb-4 md:mb-0">
           <GradientText>Resource Hub</GradientText>
         </h1>
-        <Button
-          variant="outline"
-          className="animate-fade-in"
-          asChild
-        >
-          <a href="/resources/custom-plan">Create Custom Plan</a>
-        </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {resources.map((resource, index) => (
           <FeatureCard
             key={index}
-            icon={resource.icon}
+            icon={
+              <div className="flex items-center">
+                {resource.icon}
+                {resource.secondIcon}
+              </div>
+            }
             title={resource.title}
             description={resource.description}
             action={
@@ -75,7 +56,7 @@ export default function Resources() {
                 asChild
               >
                 <a href={resource.href}>
-                  Learn More
+                  Get Started
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </a>
               </Button>

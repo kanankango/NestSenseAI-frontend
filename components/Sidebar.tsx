@@ -14,7 +14,9 @@ import { GradientText } from '@/components/GradientText'
 const menuItems = [
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'Wellness Tracker', href: '/wellness-tracker' },
-  { label: 'Resources', href: '/resources' },
+  { label: 'Nutrition & Workout', href: '/resources/nutrition-exercise' },
+  { label: 'Mental Health', href: '/mental-health' },
+  { label: 'Baby Care', href: '/baby-care' },
   { label: 'Community', href: '/community' },
   { label: 'Profile', href: '/profile' },
 ]

@@ -1,4 +1,4 @@
-// File: D:\GitHub\NestSenseAI\app\wellness-tracker\page.tsx
+// File: D:\NestSense\NestSenseAI-frontend\app\wellness-tracker\page.tsx
 import * as entry from '../../../../app/wellness-tracker/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

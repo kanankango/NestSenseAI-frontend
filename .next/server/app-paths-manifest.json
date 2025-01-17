@@ -1,7 +1,6 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/auth/page": "app/auth/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/wellness-tracker/page": "app/wellness-tracker/page.js"
+  "/auth/page": "app/auth/page.js",
+  "/wellness-tracker/page": "app/wellness-tracker/page.js",
+  "/page": "app/page.js"
 }

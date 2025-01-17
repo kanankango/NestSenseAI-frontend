@@ -18,39 +18,50 @@ export default function Auth() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-    setError('')
+    // Here you would typically handle git 
+    //if the user is logging in
+    if (isLogin){
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        })
 
-    try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-      if (!backendUrl) {
-        throw new Error('Backend URL is not configured')
+        const data = await response.json()
+        if (response.ok) {
+          localStorage.setItem('token', data.token); // Store token in localStorage
+          localStorage.setItem('user_id', data.id);
+          console.log('Login successful')
+          router.push("/dashboard")
+        }
+      } catch (error) {
+        console.log('Error logging in:', error)
       }
+      
+    }else{
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        })
 
-      const endpoint = isLogin ? '/auth/login' : '/auth/register'
-      const response = await fetch(`${backendUrl}${endpoint}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
+        const data = await response.json()
 
-      if (!response.ok) {
-        const { error } = await response.json()
-        throw new Error(error || 'Authentication failed')
+        if (response.ok) {
+          console.log('User signed up:', data)
+          localStorage.setItem("email" , email);
+          router.push('/create-account') // Navigate to the next page to collect more details
+        } else {
+          console.log('Error signing up:', data.message)
+        }
+      } catch (error) {
+        console.log('Error signing up:', error)
       }
-
-      const { token } = await response.json()
-
-      // Save token to localStorage or cookies
-      localStorage.setItem('authToken', token)
-
-      // Redirect based on the action
-      router.push(isLogin ? '/dashboard' : '/create-account')
-    } catch (err: any) {
-      setError(err.message || 'An unknown error occurred')
-    } finally {
-      setLoading(false)
+      router.push('/create-account')
     }
+    
   }
 
   const handleGoogleSignIn = () => {

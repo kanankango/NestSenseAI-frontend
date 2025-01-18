@@ -21,6 +21,7 @@ export default function CreateAccount() {
   }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    alert("hello")
     // Validate if all necessary fields are filled
     if (!formData.name || !formData.age || !formData.country || !formData.state || !formData.email) {
       console.error('Please fill all the fields');
@@ -28,7 +29,7 @@ export default function CreateAccount() {
     }
     // Sending data to the backend
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/getDetails`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/getDetails`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData), // Send the formData directly
@@ -100,7 +101,7 @@ export default function CreateAccount() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full">Complete Profile</Button>
+              <Button type="submit" className="w-full" onClick={handleSubmit}>Complete Profile</Button>
             </form>
           </CardContent>
         </Card>

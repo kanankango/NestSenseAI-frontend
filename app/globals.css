@@ -31,18 +31,35 @@
 }
 
 @keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
   }
   33% {
-    transform: translate(30px, -50px) scale(1.1);
+    transform: translate(30px, -50px) scale(1.1) rotate(120deg);
   }
   66% {
-    transform: translate(-20px, 20px) scale(0.9);
+    transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
   100% {
-    transform: translate(0px, 0px) scale(1);
+    background-position: 0% 50%;
   }
+}
+
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+.animate-gradient {
+  animation: gradient 8s linear infinite;
 }
 
 @layer base {
@@ -131,5 +148,44 @@
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+/* Scroll to top button animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-to-top {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* FAQ Accordion animations */
+.accordion-content-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.accordion-content-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.accordion-content-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordion-content-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
 }
 

@@ -1,76 +1,200 @@
+"use client"
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Header } from '@/components/Header'
-import { Heart, Baby, Brain, Calendar, Users, Moon } from 'lucide-react'
+import { Heart, Baby, Brain, Calendar, Users, Moon, ArrowRight, ArrowUp } from 'lucide-react'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { useEffect, useState } from 'react'
 
 export default function Home() {
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#FFF8F0] to-white">
       <Header />
       
-      <main className="flex-grow flex flex-col justify-center items-center gradient-bg relative overflow-hidden pt-32 md:pt-40">
+      <main className="flex-grow flex flex-col relative overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-pink-200 rounded-full opacity-20 animate-blob"></div>
-          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-purple-200 rounded-full opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 w-full h-full bg-blue-200 rounded-full opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob"></div>
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/2 w-full h-full bg-gradient-to-b from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="container mx-auto px-4 py-24 md:py-32 text-center relative z-10">
-          <div className="max-w-3xl mx-auto space-y-12 mb-24">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight fade-in-up [--animation-delay:200ms]">
-              Your Compassionate Guide Through{' '}
-              <span className="gradient-text">Postpartum Recovery</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground fade-in-up [--animation-delay:400ms]">
-              Empowering new mothers with personalized care plans, expert guidance, 
-              and a supportive community for a healthier postpartum journey.
-            </p>
-            <div className="fade-in-up [--animation-delay:600ms]">
-              <Button size="lg" className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300" asChild>
-                <Link href="/auth">
-                  Start Your Journey
-                </Link>
-              </Button>
+        {/* Hero Section */}
+        <section className="relative z-10 pt-16 pb-20">
+          <div className="container mx-auto px-4 text-center max-w-6xl">
+            <div className="mb-4 flex justify-center mt-[-80px]" >
+  <div className="relative w-[500px] h-[500px] mb-5">
+    <Image
+      src="/logo.png"
+      alt="NestSense Logo"
+      fill
+      className="object-contain"
+      priority
+    />
+  </div>
+</div>
+
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight fade-in-up [--animation-delay:200ms] text-[#2C3E50] mb-6 max-w-5xl mx-auto mt-[-80px]">
+  Your Postpartum Mate,{' '}
+  <span className="bg-gradient-to-r from-[#75B5AE] via-[#F1C0C9] to-[#75B5AE] text-transparent bg-clip-text bg-size-200 animate-gradient">
+    For Every State
+  </span>
+</h2>
+<p className="text-xl text-gray-600 fade-in-up [--animation-delay:400ms] max-w-3xl mx-auto mb-8 mt-[-10px]">
+  Empowering new mothers with personalized care plans, expert guidance, 
+  and a supportive community for a healthier postpartum journey.
+</p>
+<Button 
+  size="lg" 
+  className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group fade-in-up [--animation-delay:600ms]" 
+  asChild
+>
+  <Link href="/auth" className="flex items-center gap-2">
+    Start Your Journey
+    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+  </Link>
+</Button>
+
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="relative z-10 py-20 bg-white/50">
+          <div className="container mx-auto px-4">
+            <div className="space-y-24">
+              {[
+                {
+                  icon: Heart,
+                  title: "Personalized Care Plans",
+                  description: "Get customized wellness routines tailored to your unique postpartum journey. Our AI-powered system adapts to your needs, providing daily recommendations and adjusting based on your progress.",
+                  image: "/features/care-plans.jpg",
+                  reverse: false
+                },
+                {
+                  icon: Brain,
+                  title: "Mental Health Support",
+                  description: "Access comprehensive mental health resources and support for emotional well-being during your recovery. Connect with licensed professionals and get personalized coping strategies.",
+                  image: "/features/mental-health.jpg",
+                  reverse: true
+                },
+                {
+                  icon: Baby,
+                  title: "Expert Guidance",
+                  description: "Learn from certified professionals about postpartum and baby care. Access a library of expert-curated content and get real-time answers to your questions.",
+                  image: "/features/expert-guidance.jpg",
+                  reverse: false
+                },
+                {
+                  icon: Calendar,
+                  title: "Progress Tracking",
+                  description: "Monitor your recovery journey with intuitive tracking tools. Visualize your progress and celebrate milestones along the way.",
+                  image: "/features/progress-tracking.jpg",
+                  reverse: true
+                }
+              ].map((feature, index) => (
+                <div 
+                  key={index}
+                  className={`flex flex-col ${feature.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 fade-in-up`}
+                >
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#75B5AE] to-[#F1C0C9] p-4 mb-6">
+                      <feature.icon className="w-full h-full text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold mb-4 text-[#2C3E50]">
+                      {feature.title}
+                    </h3>
+                    <p className="text-xl text-gray-600">
+                      {feature.description}
+                    </p>
+                  </div>
+                  <div className="flex-1 relative">
+                    <div className="aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-[#75B5AE]/20 to-[#F1C0C9]/20 shadow-lg">
+                      {/* Placeholder for actual images */}
+                      <div className="w-full h-full bg-gray-200 animate-pulse" />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              { icon: Heart, title: "Personalized Care Plans", description: "Get customized wellness routines tailored to your unique postpartum journey." },
-              { icon: Brain, title: "Mental Health Support", description: "Access resources and support for emotional well-being during your recovery." },
-              { icon: Baby, title: "Expert Guidance", description: "Learn from certified professionals about postpartum and baby care." },
-              { icon: Calendar, title: "Progress Tracking", description: "Monitor your recovery journey with intuitive tracking tools." },
-              { icon: Users, title: "Community Support", description: "Connect with other mothers and share experiences in a safe space." },
-              { icon: Moon, title: "Sleep Improvement", description: "Get personalized tips to enhance your sleep quality during this crucial time." },
-            ].map((feature, index) => (
-              <div key={index} className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 fade-in-up" style={{ '--animation-delay': `${800 + index * 100}ms` } as React.CSSProperties}>
-                <feature.icon className="w-12 h-12 text-primary mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
+        {/* FAQ Section */}
+        <section className="relative z-10 py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-4xl font-bold text-center mb-12 text-[#2C3E50]">
+              Frequently Asked Questions
+            </h2>
+            <Accordion type="single" collapsible className="space-y-4">
+              {[
+                {
+                  question: "How does NestSense personalize care plans?",
+                  answer: "NestSense uses advanced AI algorithms to analyze your unique needs, preferences, and recovery progress. We consider factors like your delivery type, physical condition, and emotional well-being to create a tailored plan that evolves with you."
+                },
+                {
+                  question: "Can I connect with healthcare professionals?",
+                  answer: "Yes! NestSense provides access to certified healthcare professionals including lactation consultants, postpartum doulas, and mental health specialists. You can schedule virtual consultations and get expert advice when you need it."
+                },
+                {
+                  question: "How does the progress tracking work?",
+                  answer: "Our intuitive tracking system allows you to log your physical and emotional well-being daily. You'll get visual insights into your recovery journey, and our AI adjusts your care plan based on your progress."
+                },
+                {
+                  question: "Is my data secure and private?",
+                  answer: "Absolutely. We take your privacy seriously and employ industry-leading security measures to protect your personal information. All data is encrypted and stored securely following HIPAA guidelines."
+                },
+                {
+                  question: "Can I connect with other mothers?",
+                  answer: "Yes! Our community feature allows you to connect with other mothers at similar stages of their postpartum journey. Share experiences, ask questions, and find support in a safe, moderated environment."
+                }
+              ].map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="bg-white/80 rounded-2xl px-6 shadow-sm border border-[#75B5AE]/10">
+                  <AccordionTrigger className="text-lg font-medium text-[#2C3E50] hover:text-[#75B5AE]">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
-        </div>
+        </section>
 
-        {/* Decorative image */}
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-5xl">
-          <Image
-            src="/mother-and-baby.png"
-            alt="Mother and baby illustration"
-            width={1000}
-            height={300}
-            className="w-full h-auto opacity-50"
-          />
-        </div>
+        {/* Scroll to Top Button */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed right-8 bottom-8 p-4 rounded-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white shadow-lg hover:shadow-xl transition-all duration-300 z-50 ${
+            showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+          }`}
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-6 h-6" />
+        </button>
       </main>
 
-      <footer className="py-6 text-center text-sm text-muted-foreground bg-background">
-        © 2025 NestSenseAI. All rights reserved.
+      <footer className="py-8 text-center text-sm text-gray-600 bg-gradient-to-t from-white to-transparent">
+        <div className="container mx-auto px-4">
+          <p>© 2025 NestSense. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   )
 }
-

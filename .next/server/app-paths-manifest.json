@@ -1,5 +1,7 @@
 {
   "/page": "app/page.js",
   "/auth/page": "app/auth/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/resources/nutrition-exercise/page": "app/resources/nutrition-exercise/page.js",
+  "/wellness-tracker/page": "app/wellness-tracker/page.js"
 }

@@ -18,7 +18,7 @@ const resources = [
     icon: <Brain className="w-8 h-8" />,
     title: 'Mental Wellness',
     description: 'Coping strategies and resources for emotional well-being.',
-    href: '/resources/mental-health'
+    href: '#'
   },
   {
     icon: <Baby className="w-8 h-8" />,
@@ -67,4 +67,3 @@ export default function Resources() {
     </SidebarLayout>
   )
 }
-

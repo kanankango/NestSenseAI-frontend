@@ -1,133 +1,126 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Switch } from '@/components/ui/switch';
-import { Menu } from 'lucide-react';
-import { GradientText } from '@/components/GradientText';
-import ChatBox from '@/components/ChatBox';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Switch } from "@/components/ui/switch"
+import { Menu, X, Moon, Sun, Home, Activity, Utensils, Brain, Baby, Users, User } from 'lucide-react'
+import { GradientText } from '@/components/GradientText'
 
 const menuItems = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Wellness Tracker', href: '/wellness-tracker' },
-  { label: 'Nutrition & Workout', href: '/resources/nutrition-exercise' },
-  { label: 'Mental Health', href: '#', isChatbot: true }, // Using '#' to prevent navigation
-  { label: 'Baby Care', href: '/baby-care' },
-  { label: 'Community', href: '/community' },
-  { label: 'Profile', href: '/profile' },
-];
+  { label: 'Dashboard', href: '/dashboard', icon: Home },
+  { label: 'Wellness Tracker', href: '/wellness-tracker', icon: Activity },
+  { label: 'Nutrition & Workout', href: '/nutrition-exercise', icon: Utensils },
+  { label: 'Mental Health', href: '/mental-health', icon: Brain },
+  { label: 'Baby Care', href: '/baby-care', icon: Baby },
+  { label: 'Profile', href: '/profile', icon: User },
+]
 
 export function Sidebar() {
-  const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [showChatbot, setShowChatbot] = useState(false);
+  const [open, setOpen] = useState(false)
+  const pathname = usePathname()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => setMounted(true), [])
 
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden hover:bg-gradient-to-r hover:from-[#75B5AE]/10 hover:to-[#F1C0C9]/10"
+          >
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle Sidebar</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="p-0 w-64">
-          <SidebarContent
-            pathname={pathname}
-            setOpen={setOpen}
-            setShowChatbot={setShowChatbot}
-          />
+        <SheetContent side="left" className="p-0 w-72">
+          <SidebarContent pathname={pathname} setOpen={setOpen} />
         </SheetContent>
       </Sheet>
 
-      <div className="hidden md:block w-64 h-screen">
-        <SidebarContent
-          pathname={pathname}
-          setOpen={setOpen}
-          setShowChatbot={setShowChatbot}
-        />
+      <div className="hidden md:block w-72 h-screen">
+        <SidebarContent pathname={pathname} setOpen={setOpen} />
       </div>
-
-      {showChatbot && (
-        <div className="fixed left-64 top-0 right-0 h-screen bg-background border-l border-border shadow-lg z-40">
-          <ChatBox onClose={() => setShowChatbot(false)} />
-        </div>
-      )}
     </>
-  );
+  )
 }
 
-function SidebarContent({
-  pathname,
-  setOpen,
-  setShowChatbot,
-}: {
-  pathname: string;
-  setOpen: (open: boolean) => void;
-  setShowChatbot: (show: boolean) => void;
-}) {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (open: boolean) => void }) {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => setMounted(true), [])
 
   return (
-    <div className="h-full flex flex-col bg-background border-r">
-      <div className="p-4 border-b">
-        <GradientText className="text-2xl font-bold">NestSenseAI</GradientText>
+    <div className="h-full flex flex-col bg-gradient-to-b from-[#FFF8F0] to-white relative overflow-hidden border-r border-[#75B5AE]/10">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-[#75B5AE]/10 to-[#F1C0C9]/10 rounded-full opacity-40 animate-blob"></div>
+        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-[#75B5AE]/10 to-[#F1C0C9]/10 rounded-full opacity-40 animate-blob animation-delay-2000"></div>
       </div>
-      <ScrollArea className="flex-1">
-        <nav className="flex flex-col gap-2 p-4">
-          {menuItems.map((item) =>
-            item.isChatbot ? (
-              <button
-                key={item.href}
-                className={`flex items-center px-4 py-2 rounded-md transition-colors hover:bg-muted w-full text-left`}
-                onClick={() => {
-                  setOpen(false);
-                  setShowChatbot(true);
-                }}
-              >
-                {item.label}
-              </button>
-            ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center px-4 py-2 rounded-md transition-colors ${
-                  pathname === item.href
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
-                onClick={() => setOpen(false)}
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
-      </ScrollArea>
-      <div className="p-4 border-t">
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium">Dark Mode</span>
-          {mounted && (
-            <Switch
-              checked={theme === 'dark'}
-              onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-            />
-          )}
+
+      {/* Content */}
+      <div className="relative z-10">
+        <div className="p-6 border-b border-[#75B5AE]/10">
+          <GradientText className="text-2xl font-bold">NestSenseAI</GradientText>
+        </div>
+
+        <ScrollArea className="flex-1 h-[calc(100vh-140px)]">
+          <nav className="flex flex-col gap-2 p-4">
+            {menuItems.map((item) => {
+              const Icon = item.icon
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
+                    pathname === item.href
+                      ? 'bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white shadow-md'
+                      : 'hover:bg-gradient-to-r hover:from-[#75B5AE]/10 hover:to-[#F1C0C9]/10'
+                  }`}
+                  onClick={() => setOpen(false)}
+                >
+                  <Icon className={`h-5 w-5 ${
+                    pathname === item.href
+                      ? 'text-white'
+                      : 'text-[#2C3E50] group-hover:text-[#75B5AE]'
+                  }`} />
+                  <span className={`font-medium ${
+                    pathname === item.href
+                      ? 'text-white'
+                      : 'text-[#2C3E50] group-hover:text-[#75B5AE]'
+                  }`}>
+                    {item.label}
+                  </span>
+                </Link>
+              )
+            })}
+          </nav>
+        </ScrollArea>
+
+        <div className="relative p-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
+            <span className="text-sm font-medium text-[#2C3E50]">Dark Mode</span>
+            {mounted && (
+              <Switch
+                checked={theme === 'dark'}
+                onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                className="data-[state=checked]:bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9]"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default Sidebar;

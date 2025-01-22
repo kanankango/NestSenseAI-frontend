@@ -1,6 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
+  "/custom-plan/page": "app/custom-plan/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/resources/baby-care-tips/page": "app/resources/baby-care-tips/page.js"
+  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
+  "/wellness-tracker/page": "app/wellness-tracker/page.js",
+  "/profile/page": "app/profile/page.js"
 }

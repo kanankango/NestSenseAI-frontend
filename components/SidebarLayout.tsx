@@ -1,17 +1,23 @@
+import { useState } from 'react';
 import { Sidebar } from './Sidebar'
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-background flex flex-col md:flex-row">
-      <div className="md:w-64 flex-shrink-0">
-        <div className="md:fixed md:top-0 md:left-0 md:bottom-0 md:w-64 z-40">
-          <Sidebar />
-        </div>
+    <div className="min-h-screen bg-background flex">
+      <div className={`fixed top-0 left-0 bottom-0 z-40 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+        <Sidebar />
       </div>
-      <main className="flex-grow md:ml-64 p-4 md:p-8 overflow-auto min-h-screen">
+      <main className="flex-1 ml-0 md:ml-72 min-h-screen">
+        <button 
+          className="md:hidden p-2" 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? 'Close' : 'Open'} Sidebar
+        </button>
         {children}
       </main>
     </div>
   )
 }
-

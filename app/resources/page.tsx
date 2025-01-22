@@ -24,7 +24,7 @@ const resources = [
     icon: <Baby className="w-8 h-8" />,
     title: 'Baby Care',
     description: 'Expert advice on newborn care and development milestones.',
-    href: '/resources/baby-care'
+    href: '/resources/baby care'
   }
 ]
 

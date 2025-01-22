@@ -18,7 +18,7 @@ const menuItems = [
   { label: 'Wellness Tracker', href: '/wellness-tracker' },
   { label: 'Nutrition & Workout', href: '/resources/nutrition-exercise' },
   { label: 'Mental Health', href: '#', isChatbot: true }, // Using '#' to prevent navigation
-  { label: 'Baby Care', href: '/baby-care' },
+  { label: 'Baby Care', href: '/resources/baby-care-tips' },
   { label: 'Community', href: '/community' },
   { label: 'Profile', href: '/profile' },
 ];

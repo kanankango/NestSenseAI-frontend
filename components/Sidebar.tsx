@@ -12,13 +12,13 @@ import { Menu, X, Moon, Sun, Home, Activity, Utensils, Brain, Baby, Users, User 
 import { GradientText } from '@/components/GradientText'
 
 const menuItems = [
-  { label: 'Dashboard', href: '/dashboard', icon: Home },
-  { label: 'Wellness Tracker', href: '/wellness-tracker', icon: Activity },
-  { label: 'Nutrition & Workout', href: '/nutrition-exercise', icon: Utensils },
-  { label: 'Mental Health', href: '/mental-health', icon: Brain },
-  { label: 'Baby Care', href: '/baby-care', icon: Baby },
+  { label: 'Dashboard', href: '/dashboard',icon: Home },
+  { label: 'Wellness Tracker', href: '/wellness-tracker',icon: Activity  },
+  { label: 'Nutrition & Workout', href: '/resources/nutrition-exercise', icon: Utensils },
+  { label: 'Mental Health', href: '#', isChatbot: true ,icon: Brain }, // Using '#' to prevent navigation
+  { label: 'Baby Care', href: '/resources/baby-care-tips', icon: Baby },
   { label: 'Profile', href: '/profile', icon: User },
-]
+];
 
 export function Sidebar() {
   const [open, setOpen] = useState(false)

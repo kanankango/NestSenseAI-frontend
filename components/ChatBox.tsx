@@ -17,28 +17,6 @@ interface ChatBoxProps {
 // ChatMessage Component
 const ChatMessage: React.FC<{ message: Message }> = ({ message }) => {
   const isUser = message.sender === "user";
-  const [displayContent, setDisplayContent] = useState("");
-  const [isTyping, setIsTyping] = useState(!isUser);
-
-  useEffect(() => {
-    if (!isUser && message.content !== "Thinking...") {
-      let index = 0;
-      const timer = setInterval(() => {
-        if (index < message.content.length) {
-          setDisplayContent(prev => prev + message.content[index]);
-          index++;
-        } else {
-          setIsTyping(false);
-          clearInterval(timer);
-        }
-      }, 50); // Adjust speed of typing here
-
-      return () => clearInterval(timer);
-    } else {
-      setDisplayContent(message.content);
-      setIsTyping(false);
-    }
-  }, [message.content, isUser]);
 
   return (
     <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
@@ -51,14 +29,7 @@ const ChatMessage: React.FC<{ message: Message }> = ({ message }) => {
         )}
       >
         <p className="whitespace-pre-wrap break-words text-sm">
-          {isUser ? message.content : displayContent}
-          {isTyping && !isUser && message.content !== "Thinking..." && (
-            <span className="typing-indicator inline-flex items-center">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          )}
+          {message.content}
         </p>
       </div>
     </div>

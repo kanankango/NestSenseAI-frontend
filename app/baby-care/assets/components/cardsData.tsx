@@ -61,7 +61,7 @@ export interface CardProps {
         title: "Baby Health Basics",
         description: "Learn about common health concerns and when to contact your pediatrician.",
         category: "Health",
-        imageUrl: "/janko-ferlic-qJVluHTPx7U-unsplash.jpg",
+        imageUrl: "/alex-pasarelu-S8BW-Wx9G8I-unsplash.jpg",
         link: "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/basics/infant-and-toddler-health/hlv-20049400"
       },
       {
@@ -125,7 +125,7 @@ export interface CardProps {
         title: "Baby Travel Tips",
         description: "Essential guide for traveling with infants and young children.",
         category: "Travel",
-        imageUrl: "/IMG-20250122-WA0016.jpg",
+        imageUrl: "/janko-ferlic-qJVluHTPx7U-unsplash.jpg",
         link: "https://www.healthychildren.org/English/safety-prevention/at-play/Pages/Water-Safety-And-Young-Children.aspx"
       },
       {

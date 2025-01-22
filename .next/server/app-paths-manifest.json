@@ -1,7 +1,5 @@
 {
-  "/custom-plan/page": "app/custom-plan/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
-  "/wellness-tracker/page": "app/wellness-tracker/page.js",
-  "/profile/page": "app/profile/page.js"
+  "/mental-health/page": "app/mental-health/page.js",
+  "/page": "app/page.js"
 }

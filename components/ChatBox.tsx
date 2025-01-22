@@ -24,8 +24,8 @@ const ChatMessage: React.FC<{ message: Message }> = ({ message }) => {
         className={cn(
           "p-3 rounded-lg max-w-[80%]",
           isUser
-            ? "bg-purple-600 text-white dark:bg-purple-500"
-            : "bg-accent text-accent-foreground"
+            ? "bg-[#75B5AE] text-white"
+            : "bg-[#F1C0C9] text-[#2C3E50]"
         )}
       >
         <p className="whitespace-pre-wrap break-words text-sm">
@@ -58,7 +58,7 @@ const ChatInput: React.FC<{ onSendMessage: (message: string) => void }> = ({ onS
       />
       <Button
         onClick={handleSend}
-        className="bg-purple-600 hover:bg-purple-700 text-white"
+        className="bg-[#75B5AE] hover:opacity-90 text-white"
       >
         Send
       </Button>
@@ -118,12 +118,12 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full bg-background">
+    <div className="flex flex-col h-full bg-transparent">
       {/* Header */}
-      <div className="p-4 border-b flex items-center justify-between bg-card">
+      <div className="p-4 border-b flex items-center justify-between bg-transparent backdrop-blur-sm">
         <div className="flex items-center gap-2">
-          <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900">
-            <Brain className="w-5 h-5 text-purple-600 dark:text-purple-300" />
+          <div className="p-2 rounded-lg bg-gradient-to-r from-[#75B5AE]/10 to-[#F1C0C9]/10">
+            <Brain className="w-5 h-5 text-[#75B5AE]" />
           </div>
           <div>
             <h1 className="font-semibold">Solace</h1>
@@ -159,7 +159,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
       {messages.length === 0 && (
         <div className="p-8 text-center text-muted-foreground">
           <div className="mb-4">
-            <Brain className="w-12 h-12 mx-auto text-purple-600 dark:text-purple-400" />
+            <Brain className="w-12 h-12 mx-auto text-[#75B5AE]" />
           </div>
           <h2 className="text-lg font-medium mb-2">Welcome to Solace</h2>
           <p className="text-sm">
@@ -182,7 +182,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 border-t bg-card">
+      <div className="p-4 border-t bg-transparent backdrop-blur-sm">
         <ChatInput onSendMessage={handleSendMessage} />
       </div>
     </div>

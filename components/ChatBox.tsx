@@ -17,19 +17,48 @@ interface ChatBoxProps {
 // ChatMessage Component
 const ChatMessage: React.FC<{ message: Message }> = ({ message }) => {
   const isUser = message.sender === "user";
+  const [displayContent, setDisplayContent] = useState("");
+  const [isTyping, setIsTyping] = useState(!isUser);
+
+  useEffect(() => {
+    if (!isUser && message.content !== "Thinking...") {
+      let index = 0;
+      const timer = setInterval(() => {
+        if (index < message.content.length) {
+          setDisplayContent(prev => prev + message.content[index]);
+          index++;
+        } else {
+          setIsTyping(false);
+          clearInterval(timer);
+        }
+      }, 50); // Adjust speed of typing here
+
+      return () => clearInterval(timer);
+    } else {
+      setDisplayContent(message.content);
+      setIsTyping(false);
+    }
+  }, [message.content, isUser]);
 
   return (
     <div className={cn("flex", isUser ? "justify-end" : "justify-start")}>
       <div
         className={cn(
-          "p-3 rounded-lg max-w-[80%]",
+          "p-3 rounded-lg max-w-[80%] transition-colors duration-200",
           isUser
             ? "bg-[#75B5AE] text-white"
             : "bg-[#F1C0C9] text-[#2C3E50]"
         )}
       >
         <p className="whitespace-pre-wrap break-words text-sm">
-          {message.content}
+          {isUser ? message.content : displayContent}
+          {isTyping && !isUser && message.content !== "Thinking..." && (
+            <span className="typing-indicator inline-flex items-center">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          )}
         </p>
       </div>
     </div>
@@ -82,6 +111,14 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
     setIsTyping(true); // Show typing indicator
 
     try {
+      // Add thinking message
+      const thinkingMessage: Message = {
+        id: uuidv4(),
+        content: "Thinking...",
+        sender: "bot"
+      };
+      setMessages(prevMessages => [...prevMessages, thinkingMessage]);
+
       const response = await fetch("http://localhost:5000/api/chat", {
         method: "POST",
         headers: {
@@ -90,8 +127,13 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
         body: JSON.stringify({ message: content }),
       });
       
-
       const data = await response.json();
+
+      // Remove thinking message and add actual response
+      setMessages(prevMessages => 
+        prevMessages
+          .filter(msg => msg.id !== thinkingMessage.id)
+      );
       const botMessage: Message = {
         id: uuidv4(),
         content: data.bot_reply,

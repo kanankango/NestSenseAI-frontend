@@ -76,7 +76,7 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="relative z-10 py-20 bg-white/50">
+        <section className="relative z-10 py-20 bg-white/10">
           <div className="container mx-auto px-4">
             <div className="space-y-24">
               {[
@@ -84,28 +84,28 @@ export default function Home() {
                   icon: Heart,
                   title: "Personalized Care Plans",
                   description: "Get customized wellness routines tailored to your unique postpartum journey. Our AI-powered system adapts to your needs, providing daily recommendations and adjusting based on your progress.",
-                  image: "/features/care-plans.jpg",
+                  image: "/plans.jpg",
                   reverse: false
                 },
                 {
                   icon: Brain,
                   title: "Mental Health Support",
                   description: "Access comprehensive mental health resources and support for emotional well-being during your recovery. Connect with licensed professionals and get personalized coping strategies.",
-                  image: "/features/mental-health.jpg",
+                  image: "/bot.jpg",
                   reverse: true
                 },
                 {
                   icon: Baby,
                   title: "Expert Guidance",
                   description: "Learn from certified professionals about postpartum and baby care. Access a library of expert-curated content and get real-time answers to your questions.",
-                  image: "/features/expert-guidance.jpg",
+                  image: "/baby.jpg",
                   reverse: false
                 },
                 {
                   icon: Calendar,
                   title: "Progress Tracking",
                   description: "Monitor your recovery journey with intuitive tracking tools. Visualize your progress and celebrate milestones along the way.",
-                  image: "/features/progress-tracking.jpg",
+                  image: "/wellness.jpg",
                   reverse: true
                 }
               ].map((feature, index) => (
@@ -125,11 +125,16 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex-1 relative">
-                    <div className="aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-[#75B5AE]/20 to-[#F1C0C9]/20 shadow-lg">
-                      {/* Placeholder for actual images */}
-                      <div className="w-full h-full bg-gray-200 animate-pulse" />
-                    </div>
-                  </div>
+  <div className="aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-[#75B5AE]/20 to-[#F1C0C9]/20 shadow-lg">
+    <Image
+      src={feature.image}
+      alt={feature.title}
+      fill
+      className="object-cover"
+      priority
+    />
+  </div>
+</div>
                 </div>
               ))}
             </div>
@@ -149,10 +154,6 @@ export default function Home() {
                   answer: "NestSense uses advanced AI algorithms to analyze your unique needs, preferences, and recovery progress. We consider factors like your delivery type, physical condition, and emotional well-being to create a tailored plan that evolves with you."
                 },
                 {
-                  question: "Can I connect with healthcare professionals?",
-                  answer: "Yes! NestSense provides access to certified healthcare professionals including lactation consultants, postpartum doulas, and mental health specialists. You can schedule virtual consultations and get expert advice when you need it."
-                },
-                {
                   question: "How does the progress tracking work?",
                   answer: "Our intuitive tracking system allows you to log your physical and emotional well-being daily. You'll get visual insights into your recovery journey, and our AI adjusts your care plan based on your progress."
                 },
@@ -160,10 +161,6 @@ export default function Home() {
                   question: "Is my data secure and private?",
                   answer: "Absolutely. We take your privacy seriously and employ industry-leading security measures to protect your personal information. All data is encrypted and stored securely following HIPAA guidelines."
                 },
-                {
-                  question: "Can I connect with other mothers?",
-                  answer: "Yes! Our community feature allows you to connect with other mothers at similar stages of their postpartum journey. Share experiences, ask questions, and find support in a safe, moderated environment."
-                }
               ].map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="bg-white/80 rounded-2xl px-6 shadow-sm border border-[#75B5AE]/10">
                   <AccordionTrigger className="text-lg font-medium text-[#2C3E50] hover:text-[#75B5AE]">

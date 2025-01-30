@@ -98,64 +98,103 @@ export default function NutritionExercise() {
 
   return (
     <SidebarLayout>
-      <div className="space-y-6">
-        <div className="flex flex-col items-start mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold animate-fade-in mb-4">
-            <GradientText>Personalized Postpartum Plans</GradientText>
-          </h1>
-          <p className="text-muted-foreground mb-4">Choose a plan tailored to your specific postpartum needs or create a custom plan.</p>
-          <Button variant="outline" className="animate-fade-in" asChild>
-            <a href="/custom-plan">Create Custom Plan</a>
-          </Button>
+      <div className="min-h-screen bg-gradient-to-b from-[#FFF8F0] to-white relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob"></div>
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/2 w-full h-full bg-gradient-to-b from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {loading ? (
-            <p>Loading plans...</p>
-          ) : (
-            plans.map((plan) => (
-              <Card key={plan.plan_id} className={`transition-all duration-300 w-full ${
-                selectedPlan === plan.plan_name ? 'ring-2 ring-primary' : ''
-              } hover:shadow-lg`}>
-                <CardHeader>
-                  <CardTitle>{plan.plan_name}</CardTitle>
-                  <CardDescription>{plan.description}</CardDescription>
-                </CardHeader>
-                
-                <CardFooter className="flex gap-3 p-6">
-                  <Button 
-                    variant="outline"
-                    className="flex-1 bg-white hover:bg-primary/10 text-primary hover:text-primary border-primary hover:border-primary"
-                    onClick={() => handleViewDetails(plan.plan_id)}
+        {/* Content */}
+        <div className="relative z-10 p-4 md:p-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#75B5AE] via-[#F1C0C9] to-[#75B5AE] text-transparent bg-clip-text bg-size-200 animate-gradient">
+              <span className="bg-gradient-to-r from-[#75B5AE] via-[#F1C0C9] to-[#75B5AE] text-transparent bg-clip-text bg-size-200 animate-gradient">Personalized Postpartum Plans</span>
+              </h2>
+              <div className="flex items-center justify-end mt-4">
+                <Button 
+                  variant="default" 
+                  className="bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl" 
+                  asChild
+                >
+                  <a href="/custom-plan">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Create Custom Plan
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {loading ? (
+                <p>Loading plans...</p>
+              ) : (
+                plans.map((plan) => (
+                  <Card 
+                    key={plan.plan_id} 
+                    className={`transition-all duration-300 ${
+                      selectedPlan === plan.plan_name ? 'ring-2 ring-[#75B5AE]' : ''
+                    } bg-white/80 shadow-lg border border-[#75B5AE]/10 hover:shadow-xl`}
                   >
-                    <Eye className="w-4 h-4 mr-2" />
-                    View Details
-                  </Button>
-                  <Button 
-                    variant={selectedPlan === plan.plan_name ? "default" : "outline"}
-                    className={`flex-1 transition-colors ${
-                      selectedPlan === plan.plan_name
-                        ? "bg-primary hover:bg-primary/90 text-white" 
-                        : "bg-white hover:bg-primary/10 text-primary hover:text-primary border-primary hover:border-primary"
-                    }`}
-                    onClick={() => setSelectedPlan(plan.plan_name)}
-                  >
-                    {selectedPlan === plan.plan_name ? (
-                      <>
-                        <Check className="w-4 h-4 mr-2" />
-                        Selected
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Select Plan
-                      </>
-                    )}
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))
-          )}
+                    <CardHeader>
+                      <CardTitle className="text-[#2C3E50]">{plan.plan_name}</CardTitle>
+                      <CardDescription>{plan.description}</CardDescription>
+                    </CardHeader>
+                    
+                    <CardFooter className="flex gap-3 p-6">
+                      <Button 
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 bg-white hover:bg-[#75B5AE]/10 text-[#75B5AE] hover:text-[#75B5AE] border-[#75B5AE] hover:border-[#75B5AE]"
+                        onClick={() => handleViewDetails(plan.plan_id)}
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        View Details
+                      </Button>
+                      <Button 
+                        variant={selectedPlan === plan.plan_name ? "default" : "outline"}
+                        size="sm"
+                        className={`flex-1 transition-colors ${
+                          selectedPlan === plan.plan_name
+                            ? "bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90" 
+                            : "bg-white hover:bg-[#75B5AE]/10 text-[#75B5AE] hover:text-[#75B5AE] border-[#75B5AE] hover:border-[#75B5AE]"
+                        }`}
+                        onClick={() => setSelectedPlan(plan.plan_name)}
+                      >
+                        {selectedPlan === plan.plan_name ? (
+                          <>
+                            <Check className="w-4 h-4 mr-2" />
+                            Selected
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-4 h-4 mr-2" />
+                            Select Plan
+                          </>
+                        )}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))
+              )}
+            </div>
+
+            {selectedPlan && (
+              <div className="mt-8">
+                <Button 
+                  className="bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 transition-all duration-300 group" 
+                  asChild
+                >
+                  <a href={`/resources/plan-details/${selectedPlan.toLowerCase().replace(' ', '-')}`}>
+                    Get Started with {selectedPlan}
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -167,18 +206,6 @@ export default function NutritionExercise() {
           setCurrentPlanId(null)
         }}
       />
-
-      {selectedPlan && (
-        <div className="mt-8 animate-fade-in">
-          <Button className="group" asChild>
-            <a href={`/resources/plan-details/${selectedPlan.toLowerCase().replace(' ', '-')}`}>
-              Get Started with {selectedPlan}
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </Button>
-        </div>
-      )}
     </SidebarLayout>
   )
 }
-

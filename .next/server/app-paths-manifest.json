@@ -1,8 +1,8 @@
 {
-  "/page": "app/page.js",
-  "/wellness-tracker/page": "app/wellness-tracker/page.js",
-  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
   "/custom-plan/page": "app/custom-plan/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/mental-health/page": "app/mental-health/page.js"
+  "/mental-health/page": "app/mental-health/page.js",
+  "/baby-care/page": "app/baby-care/page.js",
+  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }

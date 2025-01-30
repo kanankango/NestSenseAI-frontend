@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { SidebarLayout } from '@/components/SidebarLayout'
 import { Button } from '@/components/ui/button'
@@ -12,49 +12,147 @@ import { Slider } from '@/components/ui/slider'
 import { ChevronLeft } from 'lucide-react'
 import { GradientText } from '@/components/GradientText'
 
+interface Activity {
+  timeOfDay: 'Morning' | 'Mid-Day' | 'Afternoon' | 'Evening'
+  name: string
+  duration: number
+}
+
+interface Meal {
+  timeOfDay: 'Breakfast' | 'Lunch' | 'Snack' | 'Dinner'
+  name: string
+  nutrition: string
+  purpose: string
+}
+
+interface Week {
+  description: string
+  activities: Activity[]
+  meals: Meal[]
+}
+
+interface PlanDetails {
+  planName: string
+  planGoal: string
+  durationWeeks: number
+  description: string
+}
+
+interface DatabaseActivity {
+  id: string;
+  name: string;
+  activity_name: string;
+  duration_mins?: number;
+}
+
+interface DatabaseMeal {
+  id: string;
+  name: string;
+  nutrition: string;
+  purpose: string;
+  category: string;
+}
+
 export default function CustomPlan() {
-  const [formData, setFormData] = useState({
-    name: '',
-    weeks: 4,
-    goals: [] as string[],
-    physicalActivity: 5,
-    sleepQuality: 5,
-    stressLevel: 5,
-    dietaryPreferences: '',
-    additionalInfo: ''
+  const [planDetails, setPlanDetails] = useState<PlanDetails>({
+    planName: '',
+    planGoal: 'Strength',
+    durationWeeks: 1,
+    description: ''
   })
+  const [weeks, setWeeks] = useState<Week[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [availableActivities, setAvailableActivities] = useState<DatabaseActivity[]>([])
+  const [availableMeals, setAvailableMeals] = useState<DatabaseMeal[]>([])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  // Fetch activities and meals when component mounts
+  useEffect(() => {
+    const fetchActivitiesAndMeals = async () => {
+      try {
+        // Update the fetch URL to match your backend endpoint
+        const activitiesRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/getActivities`);
+        
+        if (activitiesRes.ok) {
+          const activities = await activitiesRes.json();
+          console.log('Fetched activities:', activities); // Debug log
+          setAvailableActivities(activities);
+        }
+        
+        // Comment out meals fetch for now since endpoint doesn't exist yet
+        const mealsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/getMeals`);
+        if (mealsRes.ok) {
+          const meals = await mealsRes.json();
+          setAvailableMeals(meals);
+        }
+      } catch (error) {
+        console.error('Error fetching activities and meals:', error);
+      }
+    };
 
-  const handleSliderChange = (name: string) => (value: number[]) => {
-    setFormData({ ...formData, [name]: value[0] })
-  }
+    fetchActivitiesAndMeals();
+  }, []);
 
-  const handleGoalToggle = (goal: string) => {
-    setFormData(prev => ({
-      ...prev,
-      goals: prev.goals.includes(goal)
-        ? prev.goals.filter(g => g !== goal)
-        : [...prev.goals, goal]
-    }))
-  }
+  // Add debug log to see if activities are in state
+  useEffect(() => {
+    console.log('Available activities in state:', availableActivities);
+  }, [availableActivities]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formData)
-    alert('Custom plan request submitted! We\'ll generate your plan shortly.')
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/createCustomPlan`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ planDetails, weeks }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to save plan')
+      }
+
+      const data = await response.json()
+      // Optionally redirect to the plan view page
+      // router.push(/plans/${data.id})
+    } catch (error) {
+      console.error('Error saving plan:', error)
+      // Optionally show error to user using a toast notification
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+  
+  const addWeek = () => {
+    setWeeks([...weeks, {
+      description: '',
+      activities: [],
+      meals: []
+    }])
   }
 
-  const goals = [
-    "Weight Loss",
-    "Improve Sleep",
-    "Reduce Stress",
-    "Increase Energy",
-    "Strengthen Core",
-    "Enhance Nutrition"
-  ]
+  const addActivity = (weekIndex: number) => {
+    const newWeeks = [...weeks]
+    newWeeks[weekIndex].activities.push({
+      timeOfDay: 'Morning',
+      name: '',
+      duration: 0
+    })
+    setWeeks(newWeeks)
+  }
+
+  const addMeal = (weekIndex: number) => {
+    const newWeeks = [...weeks]
+    newWeeks[weekIndex].meals.push({
+      timeOfDay: 'Breakfast',
+      name: '',
+      nutrition: '',
+      purpose: ''
+    })
+    setWeeks(newWeeks)
+  }
 
   return (
     <SidebarLayout>
@@ -87,131 +185,233 @@ export default function CustomPlan() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Plan Details */}
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-[#2C3E50]">Your Name</label>
+                  <label htmlFor="planName" className="text-sm font-medium text-[#2C3E50]">Plan Name</label>
                   <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
+                    id="planName"
+                    name="planName"
+                    value={planDetails.planName}
+                    onChange={(e) => setPlanDetails({...planDetails, planName: e.target.value})}
                     required
                     className="bg-white/50 border-[#75B5AE]/20 focus:border-[#75B5AE] focus:ring-[#75B5AE]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#2C3E50]">Plan Duration</label>
-                  <Select onValueChange={(value) => setFormData({ ...formData, weeks: parseInt(value) })}>
-                    <SelectTrigger className="bg-white/50 border-[#75B5AE]/20">
-                      <SelectValue placeholder="Select duration" />
+                  <label htmlFor="planGoal" className="text-sm font-medium text-[#2C3E50]">Plan Goal</label>
+                  <Select
+                    onValueChange={(value) => setPlanDetails({...planDetails, planGoal: value})}
+                    value={planDetails.planGoal}
+                  >
+                    <SelectTrigger className="bg-white/50 border-[#75B5AE]/20 hover:border-[#75B5AE] focus:ring-[#75B5AE]">
+                      <SelectValue placeholder="Select goal" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="4">4 weeks</SelectItem>
-                      <SelectItem value="8">8 weeks</SelectItem>
-                      <SelectItem value="12">12 weeks</SelectItem>
+                    <SelectContent 
+                      side="bottom" 
+                      className="bg-white/95 border-[#75B5AE]/20 shadow-md"
+                    >
+                      <SelectItem value="Strength" className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10">Strength</SelectItem>
+                      <SelectItem value="Recovery" className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10">Recovery</SelectItem>
+                      <SelectItem value="Weight Loss" className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10">Weight Loss</SelectItem>
+                      <SelectItem value="Endurance" className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10">Endurance</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#2C3E50]">Your Goals</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {goals.map(goal => (
-                      <Button
-                        key={goal}
-                        type="button"
-                        variant={formData.goals.includes(goal) ? "default" : "outline"}
-                        onClick={() => handleGoalToggle(goal)}
-                        className={`w-full ${
-                          formData.goals.includes(goal)
-                            ? 'bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90'
-                            : 'border-[#75B5AE]/20 hover:border-[#75B5AE] hover:text-[#75B5AE]'
-                        }`}
-                      >
-                        {goal}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#2C3E50]">Physical Activity Level</label>
-                  <Slider
-                    min={1}
-                    max={10}
-                    step={1}
-                    value={[formData.physicalActivity]}
-                    onValueChange={handleSliderChange('physicalActivity')}
-                    className="[&_.slider-thumb]:bg-[#75B5AE] [&_.slider-track]:bg-[#75B5AE]/50"
-                  />
-                  <div className="flex justify-between text-xs text-[#2C3E50]/60">
-                    <span>Low</span>
-                    <span>High</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#2C3E50]">Sleep Quality</label>
-                  <Slider
-                    min={1}
-                    max={10}
-                    step={1}
-                    value={[formData.sleepQuality]}
-                    onValueChange={handleSliderChange('sleepQuality')}
-                    className="[&_.slider-thumb]:bg-[#75B5AE] [&_.slider-track]:bg-[#75B5AE]/50"
-                  />
-                  <div className="flex justify-between text-xs text-[#2C3E50]/60">
-                    <span>Poor</span>
-                    <span>Excellent</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-[#2C3E50]">Stress Level</label>
-                  <Slider
-                    min={1}
-                    max={10}
-                    step={1}
-                    value={[formData.stressLevel]}
-                    onValueChange={handleSliderChange('stressLevel')}
-                    className="[&_.slider-thumb]:bg-[#75B5AE] [&_.slider-track]:bg-[#75B5AE]/50"
-                  />
-                  <div className="flex justify-between text-xs text-[#2C3E50]/60">
-                    <span>Low</span>
-                    <span>High</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="dietaryPreferences" className="text-sm font-medium text-[#2C3E50]">Dietary Preferences</label>
+                  <label htmlFor="durationWeeks" className="text-sm font-medium text-[#2C3E50]">Duration (Weeks)</label>
                   <Input
-                    id="dietaryPreferences"
-                    name="dietaryPreferences"
-                    value={formData.dietaryPreferences}
-                    onChange={handleChange}
-                    placeholder="e.g., Vegetarian, Gluten-free, etc."
+                    id="durationWeeks"
+                    name="durationWeeks"
+                    type="number"
+                    value={planDetails.durationWeeks}
+                    onChange={(e) => setPlanDetails({...planDetails, durationWeeks: parseInt(e.target.value)})}
+                    required
                     className="bg-white/50 border-[#75B5AE]/20 focus:border-[#75B5AE] focus:ring-[#75B5AE]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="additionalInfo" className="text-sm font-medium text-[#2C3E50]">Additional Information</label>
+                  <label htmlFor="description" className="text-sm font-medium text-[#2C3E50]">Plan Description</label>
                   <Textarea
-                    id="additionalInfo"
-                    name="additionalInfo"
-                    value={formData.additionalInfo}
-                    onChange={handleChange}
+                    id="description"
+                    name="description"
+                    value={planDetails.description}
+                    onChange={(e) => setPlanDetails({...planDetails, description: e.target.value})}
                     placeholder="Any other details you'd like us to consider for your plan"
                     rows={4}
                     className="bg-white/50 border-[#75B5AE]/20 focus:border-[#75B5AE] focus:ring-[#75B5AE]"
                   />
                 </div>
 
+                {/* Weeks & Activities */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-[#2C3E50]">Weeks & Activities</label>
+                  <Button
+                    type="button"
+                    onClick={addWeek}
+                    className="w-full py-6 text-lg rounded-xl bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 transition-all duration-300"
+                  >
+                    Add Week
+                  </Button>
+                </div>
+
+                {weeks.map((week, weekIndex) => (
+                  <div key={weekIndex} className="border rounded-md p-4 mb-4">
+                    <h4 className="text-lg font-medium mb-3">Week {weekIndex + 1}</h4>
+                    <textarea
+                      placeholder="Week Description"
+                      className="w-full rounded-md border border-gray-300 p-2 mb-4"
+                      rows={2}
+                      value={week.description}
+                      onChange={(e) => {
+                        const newWeeks = [...weeks]
+                        newWeeks[weekIndex].description = e.target.value
+                        setWeeks(newWeeks)
+                      }}
+                    />
+
+                    <div className="mb-4">
+                      <h5 className="font-medium mb-2">Activities</h5>
+                      <Button
+                        type="button"
+                        onClick={() => addActivity(weekIndex)}
+                        className="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700 mb-2"
+                      >
+                        Add Activity
+                      </Button>
+                      {week.activities.map((activity, activityIndex) => (
+                        <div key={activityIndex} className="border rounded-md p-3 mb-2">
+                          <select 
+                            className="w-full rounded-md border border-gray-300 p-2 mb-2"
+                            value={activity.timeOfDay}
+                            onChange={(e) => {
+                              const newWeeks = [...weeks]
+                              newWeeks[weekIndex].activities[activityIndex].timeOfDay = e.target.value as Activity['timeOfDay']
+                              setWeeks(newWeeks)
+                            }}
+                          >
+                            <option value="Morning">Morning</option>
+                            <option value="Mid-Day">Mid-Day</option>
+                            <option value="Afternoon">Afternoon</option>
+                            <option value="Evening">Evening</option>
+                          </select>
+                          <Select
+                            value={activity.name}
+                            onValueChange={(value) => {
+                              const newWeeks = [...weeks];
+                              const selectedActivity = availableActivities.find(a => a.activity_name === value);
+                              if (selectedActivity) {
+                                newWeeks[weekIndex].activities[activityIndex] = {
+                                  ...newWeeks[weekIndex].activities[activityIndex],
+                                  name: value,
+                                  duration: selectedActivity.duration_mins || 0
+                                };
+                                setWeeks(newWeeks);
+                              }
+                            }}
+                          >
+                            <SelectTrigger className="w-full mb-2">
+                              <SelectValue placeholder="Select an activity" />
+                            </SelectTrigger>
+                            <SelectContent side="bottom">
+                              {availableActivities.map((dbActivity) => (
+                                <SelectItem key={dbActivity.id} value={dbActivity.activity_name}>
+                                  {dbActivity.activity_name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <input
+                            type="number"
+                            placeholder="Duration (mins)"
+                            className="w-full rounded-md border border-gray-300 p-2"
+                            value={activity.duration}
+                            onChange={(e) => {
+                              const newWeeks = [...weeks];
+                              newWeeks[weekIndex].activities[activityIndex].duration = parseInt(e.target.value);
+                              setWeeks(newWeeks);
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div>
+                      <h5 className="font-medium mb-2">Meals</h5>
+                      <Button
+                        type="button"
+                        onClick={() => addMeal(weekIndex)}
+                        className="bg-gray-600 text-white px-3 py-1 rounded-md hover:bg-gray-700 mb-2"
+                      >
+                        Add Meal
+                      </Button>
+                      {week.meals.map((meal, mealIndex) => (
+                        <div key={mealIndex} className="border rounded-md p-3 mb-2">
+                          <div className="space-y-3">
+                            <Select
+                              value={meal.name}
+                              onValueChange={(value) => {
+                                const newWeeks = [...weeks];
+                                const selectedMeal = availableMeals.find(m => m.name === value);
+                                if (selectedMeal) {
+                                  newWeeks[weekIndex].meals[mealIndex] = {
+                                    ...newWeeks[weekIndex].meals[mealIndex],
+                                    name: selectedMeal.name,
+                                    nutrition: selectedMeal.nutrition,
+                                    purpose: selectedMeal.purpose
+                                  };
+                                  setWeeks(newWeeks);
+                                }
+                              }}
+                            >
+                              <SelectTrigger className="w-full border-[#75B5AE]/20 hover:border-[#75B5AE] focus:ring-[#75B5AE] text-black">
+                                <SelectValue placeholder="Select a meal" />
+                              </SelectTrigger>
+                              <SelectContent 
+                                side="bottom" 
+                                className="bg-white border-[#75B5AE]/20 shadow-md max-h-[200px] overflow-y-auto"
+                              >
+                                {availableMeals.map((dbMeal) => (
+                                  <SelectItem 
+                                    key={dbMeal.id} 
+                                    value={dbMeal.name}
+                                    className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10 cursor-pointer py-2 text-gray-900"
+                                  >
+                                    {dbMeal.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+
+                            <input
+                              type="text"
+                              placeholder="Nutritional Value"
+                              className="w-full rounded-md border border-[#75B5AE]/20 p-2 bg-white/50"
+                              value={meal.nutrition}
+                              readOnly
+                            />
+
+                            <input
+                              type="text"
+                              placeholder="Purpose"
+                              className="w-full rounded-md border border-[#75B5AE]/20 p-2 bg-white/50"
+                              value={meal.purpose}
+                              readOnly
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
                 <Button 
                   type="submit" 
                   className="w-full py-6 text-lg rounded-xl bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 transition-all duration-300"
                 >
-                  Generate My Custom Plan
+                  Save Plan
                 </Button>
               </form>
             </div>

@@ -110,8 +110,13 @@ export default function Profile() {
   }
 
   const content = (
-    <div className="p-6">
-      <Card className="max-w-4xl mx-auto bg-white shadow-sm">
+    <div className="p-6 relative h-full bg-gradient-to-b from-[#FFF8F0] to-white overflow-hidden">
+      <div className="absolute inset-0">
+          <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob"></div>
+          <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-1/2 left-1/2 w-full h-full bg-gradient-to-b from-[#75B5AE]/40 to-[#F1C0C9]/40 rounded-full opacity-40 animate-blob animation-delay-4000"></div>
+        </div>
+      <Card className="max-w-4xl mx-auto bg-white shadow-sm bg-gradient-to-b from-[#FFF8F0] to-white relative mt-[100px]">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <Button

@@ -50,7 +50,6 @@ interface DatabaseMeal {
   name: string;
   nutrition: string;
   purpose: string;
-  category: string;
 }
 
 export default function CustomPlan() {
@@ -69,8 +68,17 @@ export default function CustomPlan() {
   useEffect(() => {
     const fetchActivitiesAndMeals = async () => {
       try {
+
+        const mealsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/getMeals`);
+        console.log(mealsRes)
+        if (mealsRes.ok) {
+          const meals = await mealsRes.json();
+          setAvailableMeals(meals);
+        }
+
         // Update the fetch URL to match your backend endpoint
         const activitiesRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/getActivities`);
+        console.log(activitiesRes)
         
         if (activitiesRes.ok) {
           const activities = await activitiesRes.json();
@@ -79,11 +87,7 @@ export default function CustomPlan() {
         }
         
         // Comment out meals fetch for now since endpoint doesn't exist yet
-        const mealsRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exercise/getMeals`);
-        if (mealsRes.ok) {
-          const meals = await mealsRes.json();
-          setAvailableMeals(meals);
-        }
+        
       } catch (error) {
         console.error('Error fetching activities and meals:', error);
       }
@@ -96,6 +100,10 @@ export default function CustomPlan() {
   useEffect(() => {
     console.log('Available activities in state:', availableActivities);
   }, [availableActivities]);
+
+  useEffect(() => {
+    console.log('Available activities in state:', availableMeals);
+  }, [availableMeals]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -349,7 +357,7 @@ export default function CustomPlan() {
                       </Button>
                       {week.meals.map((meal, mealIndex) => (
                         <div key={mealIndex} className="border rounded-md p-3 mb-2">
-                          <div className="space-y-3">
+                          <div className="space-y-3 ">
                             <Select
                               value={meal.name}
                               onValueChange={(value) => {
@@ -371,13 +379,13 @@ export default function CustomPlan() {
                               </SelectTrigger>
                               <SelectContent 
                                 side="bottom" 
-                                className="bg-white border-[#75B5AE]/20 shadow-md max-h-[200px] overflow-y-auto"
+                                className="border-[#75B5AE]/20 shadow-md max-h-[200px] overflow-y-auto"
                               >
                                 {availableMeals.map((dbMeal) => (
                                   <SelectItem 
                                     key={dbMeal.id} 
                                     value={dbMeal.name}
-                                    className="hover:bg-[#75B5AE]/10 focus:bg-[#75B5AE]/10 cursor-pointer py-2 text-gray-900"
+                                    className="cursor-pointer py-2 text-black-900"
                                   >
                                     {dbMeal.name}
                                   </SelectItem>

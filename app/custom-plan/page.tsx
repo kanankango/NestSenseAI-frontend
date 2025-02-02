@@ -46,9 +46,9 @@ interface DatabaseActivity {
 }
 
 interface DatabaseMeal {
-  id: string;
-  name: string;
-  nutrition: string;
+  meal_id: string;
+  meal_name: string;
+  nutritional_value: string;
   purpose: string;
 }
 
@@ -102,7 +102,7 @@ export default function CustomPlan() {
   }, [availableActivities]);
 
   useEffect(() => {
-    console.log('Available activities in state:', availableMeals);
+    console.log('Available meals in state:', availableMeals);
   }, [availableMeals]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -362,12 +362,12 @@ export default function CustomPlan() {
                               value={meal.name}
                               onValueChange={(value) => {
                                 const newWeeks = [...weeks];
-                                const selectedMeal = availableMeals.find(m => m.name === value);
+                                const selectedMeal = availableMeals.find(m => m.meal_name === value);
                                 if (selectedMeal) {
                                   newWeeks[weekIndex].meals[mealIndex] = {
                                     ...newWeeks[weekIndex].meals[mealIndex],
-                                    name: selectedMeal.name,
-                                    nutrition: selectedMeal.nutrition,
+                                    name: selectedMeal.meal_name,
+                                    nutrition: selectedMeal.nutritional_value,
                                     purpose: selectedMeal.purpose
                                   };
                                   setWeeks(newWeeks);
@@ -375,19 +375,18 @@ export default function CustomPlan() {
                               }}
                             >
                               <SelectTrigger className="w-full border-[#75B5AE]/20 hover:border-[#75B5AE] focus:ring-[#75B5AE] text-black">
-                                <SelectValue placeholder="Select a meal" />
+                                <SelectValue placeholder="Select a meal"  />
                               </SelectTrigger>
                               <SelectContent 
-                                side="bottom" 
-                                className="border-[#75B5AE]/20 shadow-md max-h-[200px] overflow-y-auto"
+                                side="top" 
                               >
                                 {availableMeals.map((dbMeal) => (
                                   <SelectItem 
-                                    key={dbMeal.id} 
-                                    value={dbMeal.name}
-                                    className="cursor-pointer py-2 text-black-900"
+                                    key={dbMeal.meal_id} 
+                                    value={dbMeal.meal_name}
+                                    className=""
                                   >
-                                    {dbMeal.name}
+                                    {dbMeal.meal_name}
                                   </SelectItem>
                                 ))}
                               </SelectContent>

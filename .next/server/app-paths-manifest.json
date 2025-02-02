@@ -1,7 +1,6 @@
 {
-  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
-  "/mental-health/page": "app/mental-health/page.js",
-  "/profile/page": "app/profile/page.js",
+  "/page": "app/page.js",
   "/auth/page": "app/auth/page.js",
+  "/nutrition-exercise/page": "app/nutrition-exercise/page.js",
   "/custom-plan/page": "app/custom-plan/page.js"
 }

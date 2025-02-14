@@ -1,4 +1,4 @@
-// File: D:\NestSenseAI\NestSenseAI-frontend\app\nutrition-exercise\page.tsx
+// File: D:\GitHub\NestSenseAI-frontend\app\nutrition-exercise\page.tsx
 import * as entry from '../../../../app/nutrition-exercise/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

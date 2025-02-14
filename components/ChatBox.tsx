@@ -90,7 +90,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ onClose }) => {
       };
       setMessages(prevMessages => [...prevMessages, thinkingMessage]);
 
-      const response = await fetch("https://nestsenseai-solace.onrender.com/chat", {
+      const response = await fetch("https://nestsenseai-solace.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

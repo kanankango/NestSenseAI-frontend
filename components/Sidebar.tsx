@@ -118,15 +118,17 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
             )}
           </div>
         </div> */}
-        <div className="relative p-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
-          <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
-          <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
-                > Logout </Button>
-            
-          </div>
-        </div>
+       <div className="relative p-4 -mt-2 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
+  <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
+    <Button 
+      type="submit" 
+      className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
+    >
+      Logout
+    </Button>
+  </div>
+</div>
+
       </div>
     </div>
   )

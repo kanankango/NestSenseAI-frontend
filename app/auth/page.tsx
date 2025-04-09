@@ -117,7 +117,7 @@ export default function Auth() {
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-white/50"
                 />
-                <a href = "/dashboard"><Button 
+                <a href = "https://nest-sense-ai.vercel.app/dashboard"><Button 
                   type="submit" 
                   className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
                 >

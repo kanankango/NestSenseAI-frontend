@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -21,12 +22,17 @@ const menuItems = [
 ]
 
 export function Sidebar() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => setMounted(true), [])
+
+  const handleLogout = () => {
+    router.push("https://nest-sense-ai.vercel.app/auth")
+  }
 
   return (
     <>
@@ -122,6 +128,7 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
   <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
     <Button 
       type="submit" 
+      onClick={handleLogout}
       className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
     >
       Logout

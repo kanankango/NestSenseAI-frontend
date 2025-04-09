@@ -107,7 +107,6 @@ export default function Auth() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   className="bg-white/50"
                 />
                 <Input
@@ -115,7 +114,6 @@ export default function Auth() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                   className="bg-white/50"
                 />
                 <Button 

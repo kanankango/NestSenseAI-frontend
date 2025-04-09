@@ -22,7 +22,8 @@ export default function Auth() {
     // Here you would typically handle git 
     //if the user is logging in
     if (isLogin){
-      try {
+       router.push("/dashboard")
+      /*try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -38,11 +39,11 @@ export default function Auth() {
         }
       } catch (error) {
         console.log('Error logging in:', error)
-      }
+      }*/
       
     }else{
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
+       /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -59,7 +60,7 @@ export default function Auth() {
         }
       } catch (error) {
         console.log('Error signing up:', error)
-      }
+      }*/
       router.push('/create-account')
     }
     

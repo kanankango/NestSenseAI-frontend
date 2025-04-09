@@ -106,7 +106,7 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
           </nav>
         </ScrollArea>
 
-        <div className="relative p-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
+        {/* <div className="relative p-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
           <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
             <span className="text-sm font-medium text-[#2C3E50]">Dark Mode</span>
             {mounted && (
@@ -117,7 +117,7 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
               />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

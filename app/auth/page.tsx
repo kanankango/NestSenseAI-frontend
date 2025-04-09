@@ -22,7 +22,7 @@ export default function Auth() {
     // Here you would typically handle git 
     //if the user is logging in
     if (isLogin){
-       router.push("/dashboard");
+       router.push("https://nest-sense-ai.vercel.app/dashboard");
       /*try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
           method: 'POST',

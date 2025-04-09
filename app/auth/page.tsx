@@ -21,10 +21,10 @@ export default function Auth() {
     e.preventDefault()
     // Here you would typically handle git 
     //if the user is logging in
-   /* if (isLogin){
+   if (isLogin){
       
       try {
-        //router.push("https://nest-sense-ai.vercel.app/dashboard");
+        router.push("https://nest-sense-ai.vercel.app/dashboard");
        /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -37,13 +37,14 @@ export default function Auth() {
           localStorage.setItem('user_id', data.id);
           console.log('Login successful')
           router.push("/dashboard") */
-        }
-     /* } catch (error) {
+        //}
+      } catch (error) {
         console.log('Error logging in:', error)
       }
       
     }else{
       try {
+        router.push("https://nest-sense-ai.vercel.app/create-account'");
        /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -58,14 +59,14 @@ export default function Auth() {
           router.push('/create-account') // Navigate to the next page to collect more details
         } else {
           console.log('Error signing up:', data.message)
-        }
+        }*/
       } catch (error) {
         console.log('Error signing up:', error)
-      }*/
-     /* router.push('/create-account')
+      }
+     router.push('/create-account')
     }
     
-  }*/
+  }
 
   const handleGoogleSignIn = () => {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -102,7 +103,7 @@ export default function Auth() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form /*onSubmit={handleSubmit}*/ className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <Input
                   type="email"
                   placeholder="Email"
@@ -116,8 +117,7 @@ export default function Auth() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="bg-white/50"
-                />
-                <a href = "https://nest-sense-ai.vercel.app/dashboard"><Button 
+                /><Button 
                   type="submit" 
                   className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
                 >
@@ -125,7 +125,7 @@ export default function Auth() {
                     {isLogin ? 'Sign In' : 'Sign Up'}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
-                </Button></a>
+                </Button>
               </form>
               <div className="mt-4 text-center">
                 <span className="text-sm text-muted-foreground">or continue with</span>

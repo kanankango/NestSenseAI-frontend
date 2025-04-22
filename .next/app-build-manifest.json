@@ -1,125 +1,30 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/app/_not-found/page-eb3b180e2964d882.js"
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/css/fb4fccb3e585bc34.css",
-      "static/chunks/app/layout-a7aa7210c624c1fb.js"
-    ],
-    "/mental-health/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/app/mental-health/page-8bb81fba3eba9495.js"
-    ],
-    "/auth/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/app/auth/page-1b315f0818c16b0d.js"
-    ],
-    "/create-account/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/app/create-account/page-89035a8f119fbc48.js"
-    ],
-    "/baby-care/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/app/baby-care/page-025989325b118976.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/188-bd28d178056e4bf9.js",
-      "static/chunks/app/page-5afd00973975537f.js"
-    ],
-    "/custom-plan/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/922-8baa6efeeb689be4.js",
-      "static/chunks/709-4e438acc4f6d23b0.js",
-      "static/chunks/app/custom-plan/page-04daa8c5677f12c3.js"
-    ],
-    "/onboarding/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/app/onboarding/page-7f639d7a1be0d62c.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/dashboard/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/app/dashboard/page-291899621d911001.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
     ],
-    "/profile/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/922-8baa6efeeb689be4.js",
-      "static/chunks/709-4e438acc4f6d23b0.js",
-      "static/chunks/app/profile/page-4bff082cd8a3725e.js"
+    "/skin-analyser/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/skin-analyser/page.js"
     ],
-    "/wellness-tracker/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/812-60c0c1775b40a2b3.js",
-      "static/chunks/app/wellness-tracker/page-0877d6a5629d6da0.js"
-    ],
-    "/nutrition-exercise/page": [
-      "static/chunks/webpack-19a384338f044d80.js",
-      "static/chunks/fd9d1056-b6bd4111191f2b98.js",
-      "static/chunks/117-1fbb70c80112add2.js",
-      "static/chunks/main-app-4dd0fef09fe9e26a.js",
-      "static/chunks/569-a911e7c0a8b80a44.js",
-      "static/chunks/994-ba0ce0f3395d66c9.js",
-      "static/chunks/113-0c7fc9e39b3cc788.js",
-      "static/chunks/418-df6c6b031fa50e27.js",
-      "static/chunks/app/nutrition-exercise/page-c30a37537e1805af.js"
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

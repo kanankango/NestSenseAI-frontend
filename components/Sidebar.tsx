@@ -16,9 +16,10 @@ const menuItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
   { label: 'Wellness Tracker', href: '/wellness-tracker', icon: Activity },
   { label: 'Nutrition & Workout', href: '/nutrition-exercise', icon: Utensils },
-  { label: 'Mental Health', href: '/mental-health', icon: Brain },
+  { label: 'Skin Analyser', href: '/skin-analyser', icon: Brain },
   { label: 'Baby Care', href: '/baby-care', icon: Baby },
   { label: 'Profile', href: '/profile', icon: User },
+  
 ]
 
 export function Sidebar() {

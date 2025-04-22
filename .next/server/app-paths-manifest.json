@@ -1,14 +1,3 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/mental-health/page": "app/mental-health/page.js",
-  "/auth/page": "app/auth/page.js",
-  "/create-account/page": "app/create-account/page.js",
-  "/baby-care/page": "app/baby-care/page.js",
-  "/page": "app/page.js",
-  "/custom-plan/page": "app/custom-plan/page.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/profile/page": "app/profile/page.js",
-  "/wellness-tracker/page": "app/wellness-tracker/page.js",
-  "/nutrition-exercise/page": "app/nutrition-exercise/page.js"
+  "/page": "app/page.js"
 }

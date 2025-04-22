@@ -142,7 +142,7 @@ export default function Profile() {
               {isEditing && (
                 <label className="absolute bottom-0 right-0 p-1 bg-white rounded-full shadow-lg cursor-pointer">
                   <Upload className="w-5 h-5 text-gray-600" />
-                  <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" />
+                  <input type="file" className="hidden" onChange={handleImageUpload} accept="image/*" title="Upload Profile Image" />
                 </label>
               )}
             </div>

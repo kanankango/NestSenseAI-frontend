@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,16 +9,17 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Switch } from "@/components/ui/switch"
-import { Menu, X, Moon, Sun, Home, Activity, Utensils, Brain, Baby, Users, User } from 'lucide-react'
+import { Menu, Moon, Sun, Home, Activity, Utensils, Brain, Baby, User } from 'lucide-react'
 import { GradientText } from '@/components/GradientText'
 
 const menuItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
   { label: 'Wellness Tracker', href: '/wellness-tracker', icon: Activity },
   { label: 'Nutrition & Workout', href: '/nutrition-exercise', icon: Utensils },
-  { label: 'Mental Health', href: '/mental-health', icon: Brain },
+  { label: 'Skin Analyser', href: '/skin-analyser', icon: Brain },
   { label: 'Baby Care', href: '/baby-care', icon: Baby },
   { label: 'Profile', href: '/profile', icon: User },
+  
 ]
 
 export function Sidebar() {
@@ -56,8 +58,13 @@ export function Sidebar() {
 function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (open: boolean) => void }) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const router = useRouter()
 
   useEffect(() => setMounted(true), [])
+
+  function handleLogout() {
+    router.push("https://nest-sense-ai.vercel.app/auth")
+  }
 
   return (
     <div className="h-full flex flex-col bg-gradient-to-b from-[#FFF8F0] to-white relative overflow-hidden border-r border-[#75B5AE]/10">
@@ -106,16 +113,15 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
           </nav>
         </ScrollArea>
 
-        <div className="relative p-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
+        <div className="relative p-4 -mt-4 border-t border-[#75B5AE]/10 bg-white/50 backdrop-blur-sm">
           <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-gradient-to-r from-[#75B5AE]/5 to-[#F1C0C9]/5">
-            <span className="text-sm font-medium text-[#2C3E50]">Dark Mode</span>
-            {mounted && (
-              <Switch
-                checked={theme === 'dark'}
-                onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-                className="data-[state=checked]:bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9]"
-              />
-            )}
+            <Button 
+              type="button" 
+              onClick={handleLogout}
+              className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
+            >
+              Logout
+            </Button>
           </div>
         </div>
       </div>
@@ -123,4 +129,4 @@ function SidebarContent({ pathname, setOpen }: { pathname: string, setOpen: (ope
   )
 }
 
-export default Sidebar;
+export default Sidebar

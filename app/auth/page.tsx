@@ -21,9 +21,11 @@ export default function Auth() {
     e.preventDefault()
     // Here you would typically handle git 
     //if the user is logging in
-    if (isLogin){
+   if (isLogin){
+      
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
+        router.push("https://nest-sense-ai.vercel.app/dashboard");
+       /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -34,15 +36,16 @@ export default function Auth() {
           localStorage.setItem('token', data.token); // Store token in localStorage
           localStorage.setItem('user_id', data.id);
           console.log('Login successful')
-          router.push("/dashboard")
-        }
+          router.push("/dashboard") */
+        //}
       } catch (error) {
         console.log('Error logging in:', error)
       }
       
     }else{
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
+        router.push("https://nest-sense-ai.vercel.app/create-account'");
+       /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -56,11 +59,11 @@ export default function Auth() {
           router.push('/create-account') // Navigate to the next page to collect more details
         } else {
           console.log('Error signing up:', data.message)
-        }
+        }*/
       } catch (error) {
         console.log('Error signing up:', error)
       }
-      router.push('/create-account')
+     router.push('/create-account')
     }
     
   }
@@ -106,7 +109,6 @@ export default function Auth() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                   className="bg-white/50"
                 />
                 <Input
@@ -114,10 +116,8 @@ export default function Auth() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                   className="bg-white/50"
-                />
-                <Button 
+                /><Button 
                   type="submit" 
                   className="w-full bg-gradient-to-r from-[#75B5AE] to-[#F1C0C9] text-white hover:opacity-90 group"
                 >

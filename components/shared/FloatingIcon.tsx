@@ -20,7 +20,7 @@ const FloatingIcon = ({ icon: Icon, top, left, right, delay = 0 }: FloatingIconP
       boxShadow: "0 4px 12px rgba(123, 104, 238, 0.2)",
     }}
   >
-    <Icon className="w-6 h-6 text-[#7b68ee]" />
+    <Icon className="w-6 h-6 text-[#ce9e57]" />
   </div>
 );
 

@@ -18,42 +18,54 @@ const Header = () => {
 
   return (
     <nav
-      style={{
-        backgroundColor: "transparent",
-        backdropFilter: isScrolled ? "blur(8px)" : "none", // Applies blur to the background behind the navbar
-      }}
-      className="fixed top-0 w-full z-50 "
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black/30 backdrop-blur-md shadow-md " : "bg-transparent"
+      }`}
     >
-      <div className="container flex items-center justify-between h-16 px-4 mx-auto">
-        <div className="flex items-center gap-2">
+      <div className="container flex font-karla items-center justify-between h-16 px-4 mx-auto">
+        <div className="flex items-center  gap-2">
           <Sparkles className="h-8 w-8 text-[#f3f3f4]" />
-          <span className="font-bold text-[#ebe9e8] text-xl">NestSense</span>
+          <span className="font-bold  text-[#ebe9e8] text-xl">NestSense</span>
         </div>
         <nav>
           <ul className="hidden md:flex space-x-8">
             <li>
-              <a href="#home" className="text-white hover:text-[#eea468] transition-colors font-medium">
+              <a
+                href="#home"
+                className="text-white hover:text-[#eea468] transition-colors font-medium"
+              >
                 Home
               </a>
             </li>
             <li>
-              <a href="#features" className="text-white hover:text-[#eea468] transition-colors font-medium">
+              <a
+                href="#features"
+                className="text-white hover:text-[#eea468] transition-colors font-medium"
+              >
                 Features
               </a>
             </li>
             <li>
-              <a href="#mission" className="text-white hover:text-[#eea468] transition-colors font-medium">
+              <a
+                href="#mission"
+                className="text-white hover:text-[#eea468] transition-colors font-medium"
+              >
                 Our Mission
               </a>
             </li>
             <li>
-              <a href="#benefits" className="text-white hover:text-[#eea468] transition-colors font-medium">
+              <a
+                href="#benefits"
+                className="text-white hover:text-[#eea468] transition-colors font-medium"
+              >
                 Benefits
               </a>
             </li>
           </ul>
         </nav>
-        <Button className="bg-[#fbfafa]  hover:bg-[#f9f1de] text-[#765133]">Get Started</Button>
+        <Button className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133]">
+          Login
+        </Button>
       </div>
     </nav>
   );

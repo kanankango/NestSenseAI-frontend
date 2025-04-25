@@ -25,7 +25,7 @@ const Header = () => {
       <div className="container flex font-karla items-center justify-between h-16 px-4 mx-auto">
         <div className="flex items-center  gap-2">
           <Sparkles className="h-8 w-8 text-[#f3f3f4]" />
-          <span className="font-bold  text-[#ebe9e8] text-xl">NestSense</span>
+          <span className="font-bold font-karla text-[#ebe9e8] text-xl">NestSense</span>
         </div>
         <nav>
           <ul className="hidden md:flex space-x-8">

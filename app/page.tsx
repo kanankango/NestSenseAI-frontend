@@ -6,6 +6,7 @@ import Header from "../components/navigation/Header";
 import HeroSection from "../components/sections/HeroSection";
 import IntroSection from "../components/sections/IntroSection";
 import FeaturesSection from "../components/sections/FeaturesSection";
+
 import MissionSection from "../components/sections/MissionSection";
 import BenefitsSection from "../components/sections/BenefitsSection";
 import FaqSection from "../components/sections/FAqSection";
@@ -61,13 +62,17 @@ const Index = () => {
         <HeroSection />
         <IntroSection />
         <FeaturesSection />
+         
         <MissionSection />
         <BenefitsSection />
         <FaqSection />
         <CTASection />
+      
+
+      
 
         <button
-          onClick={scrollToTop}
+         onClick={scrollToTop}
           className={`fixed right-8 bottom-8 p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 ${
             showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
           }`}

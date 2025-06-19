@@ -199,7 +199,7 @@ const MissionSection = () => {
                         ease: "easeOut",
                       }}
                     />
-                    
+
                     {/* Use Next.js Image component instead of img */}
                     <motion.div
                       initial={{ scale: 1.2, filter: "blur(8px)" }}
@@ -220,12 +220,11 @@ const MissionSection = () => {
                       }}
                     >
                       <Image
-                        src={NestsenseImage}
-                        width={200}
-                        height={380}
+                        src={NestsenseImage || "/placeholder.svg"}
+                        width={400}
+                        height={600}
                         alt="how do you feel"
-                        className="rounded-lg object-cover"
-                        
+                        className="rounded-lg object-cover w-full h-auto"
                       />
                     </motion.div>
 
@@ -275,7 +274,10 @@ const MissionSection = () => {
                       }}
                     >
                       <div className="absolute w-full h-[2px] bg-[#765133]"></div>
-                      <div className="absolute w-[2px] h-full bg-[#765133]"></div>
+                      <div
+                        className="
+                      absolute w-[2px] h-full bg-[#765133]"
+                      ></div>
                     </motion.div>
                   ))}
                 </motion.div>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Check, Sparkles, Leaf, Heart, Cloud, BirdIcon, ArrowRight, Moon, Sun } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 
 // Feature Card Component
 const FeatureCard = ({
@@ -264,24 +265,26 @@ export default function Page() {
                             />
                           </div>
 
-                          <Button
-                            type="submit"
-                            className="w-full bg-gradient-to-r from-[#765133] to-[#a57a59] hover:from-[#5d3f28] hover:to-[#8b6141] text-white rounded-lg py-6 text-base shadow-md hover:shadow-lg transition-all duration-300"
-                          >
-                            <span className="flex items-center justify-center gap-2">
-                              Begin Your Journey
-                              <motion.div
-                                animate={{ x: [0, 5, 0] }}
-                                transition={{
-                                  duration: 1.5,
-                                  repeat: Number.POSITIVE_INFINITY,
-                                  repeatType: "reverse",
-                                }}
-                              >
-                                <ArrowRight className="w-4 h-4" />
-                              </motion.div>
-                            </span>
-                          </Button>
+                          <Link href="/create-account" className="block">
+                            <Button
+                              type="button"
+                              className="w-full bg-gradient-to-r from-[#765133] to-[#a57a59] hover:from-[#5d3f28] hover:to-[#8b6141] text-white rounded-lg py-6 text-base shadow-md hover:shadow-lg transition-all duration-300"
+                            >
+                              <span className="flex items-center justify-center gap-2">
+                                Begin Your Journey
+                                <motion.div
+                                  animate={{ x: [0, 5, 0] }}
+                                  transition={{
+                                    duration: 1.5,
+                                    repeat: Number.POSITIVE_INFINITY,
+                                    repeatType: "reverse",
+                                  }}
+                                >
+                                  <ArrowRight className="w-4 h-4" />
+                                </motion.div>
+                              </span>
+                            </Button>
+                          </Link>
 
                           <p className="text-xs text-center text-[#765133]/70 dark:text-[#d4b8a4]/70">
                             By signing up, you agree to our{" "}

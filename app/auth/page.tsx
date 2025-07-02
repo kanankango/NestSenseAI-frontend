@@ -19,13 +19,17 @@ export default function Auth() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle git 
-    //if the user is logging in
-   if (isLogin){
-      
+    setLoading(true)
+    setError('')
+    
+    // Handle login
+    if (isLogin) {
       try {
-        router.push("https://nest-sense-ai.vercel.app/dashboard");
-       /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
+        // TODO: Implement actual login API call
+        // For now, simulate successful login
+        router.push("/dashboard")
+        /*
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -33,19 +37,26 @@ export default function Auth() {
 
         const data = await response.json()
         if (response.ok) {
-          localStorage.setItem('token', data.token); // Store token in localStorage
-          localStorage.setItem('user_id', data.id);
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('user_id', data.id)
           console.log('Login successful')
-          router.push("/dashboard") */
-        //}
+          router.push("/dashboard")
+        } else {
+          setError(data.message || 'Login failed')
+        }
+        */
       } catch (error) {
         console.log('Error logging in:', error)
+        setError('Login failed. Please try again.')
       }
-      
-    }else{
+    } else {
+      // Handle signup - redirect to create-account
       try {
-        router.push("https://nest-sense-ai.vercel.app/create-account'");
-       /* const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
+        // Store email for the create-account page
+        localStorage.setItem("email", email)
+        router.push('/create-account')
+        /*
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -55,17 +66,19 @@ export default function Auth() {
 
         if (response.ok) {
           console.log('User signed up:', data)
-          localStorage.setItem("email" , email);
-          router.push('/create-account') // Navigate to the next page to collect more details
+          localStorage.setItem("email", email)
+          router.push('/create-account')
         } else {
-          console.log('Error signing up:', data.message)
-        }*/
+          setError(data.message || 'Signup failed')
+        }
+        */
       } catch (error) {
         console.log('Error signing up:', error)
+        setError('Signup failed. Please try again.')
       }
-     router.push('/create-account')
     }
     
+    setLoading(false)
   }
 
   const handleGoogleSignIn = () => {

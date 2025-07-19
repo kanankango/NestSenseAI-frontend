@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import StatCard from "@/components/shared/StatCard";
+import Link from "next/link";
 const HeroSection = () => {
   return (
     <section
@@ -30,19 +31,27 @@ const HeroSection = () => {
                 health, and motherhood journey.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="text-white text-base bg-[#a87240] hover:bg-[#cd926d] rounded-lg px-6 py-3 font-medium group"
-                >
-                  <span className="flex items-center  font-karla gap-2">
-                    Begin Your Journey
-                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </Button>
+                <Link href="/create-account">
+                  <Button
+                    size="lg"
+                    className="text-white text-base bg-[#a87240] hover:bg-[#cd926d] rounded-lg px-6 py-3 font-medium group w-full sm:w-auto"
+                  >
+                    <span className="flex items-center  font-karla gap-2">
+                      Begin Your Journey
+                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </Button>
+                </Link>
                 <Button
                   variant="outline"
                   size="lg"
                   className="border-[#a46c47] bg-transparent  text-base font-karla text-[#ffffff] hover:bg-[#765133]/10 rounded-lg px-6 py-3 font-medium"
+                  onClick={() => {
+                    const element = document.getElementById('features');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
                 >
                   Learn More
                 </Button>

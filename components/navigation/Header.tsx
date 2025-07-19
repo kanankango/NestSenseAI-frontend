@@ -4,10 +4,14 @@ import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const { user, loading, signOut } = useAuth();
+  const router = useRouter();
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -43,6 +47,12 @@ const Header = () => {
         behavior: "smooth"
       });
     }
+  };
+
+  // Handle logout
+  const handleLogout = async () => {
+    await signOut();
+    router.push('/auth');
   };
 
   // Check if link is active
@@ -117,9 +127,31 @@ const Header = () => {
           </ul>
         </nav>
         
-        <Button className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133]">
-          Login
-        </Button>
+        {loading ? (
+          <Button className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133] opacity-50" disabled>
+            Loading...
+          </Button>
+        ) : user ? (
+          <div className="flex gap-4">
+            <Link href="/dashboard">
+              <Button className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133]">
+                Dashboard
+              </Button>
+            </Link>
+            <Button 
+              onClick={handleLogout}
+              className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133]"
+            >
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <Link href="/auth">
+            <Button className="bg-[#fbfafa] hover:bg-[#f9f1de] text-[#765133]">
+              Login
+            </Button>
+          </Link>
+        )}
       </div>
     </nav>
   );

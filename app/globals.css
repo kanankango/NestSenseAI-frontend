@@ -1,12 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes fadeInUp {
@@ -32,7 +39,8 @@
 }
 
 @keyframes blob {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0px, 0px) scale(1) rotate(0deg);
   }
   33% {
@@ -55,6 +63,29 @@
   }
 }
 
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .bg-size-200 {
   background-size: 200% 200%;
 }
@@ -62,8 +93,9 @@
 .animate-gradient {
   animation: gradient 8s linear infinite;
 }
+
 body {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
 }
 
 @layer base {
@@ -154,13 +186,6 @@ body {
   animation-delay: 4s;
 }
 
-/* Typing indicator animation */
-@keyframes blink {
-  0% { opacity: .2; }
-  20% { opacity: 1; }
-  100% { opacity: .2; }
-}
-
 .typing-indicator span {
   animation-name: blink;
   animation-duration: 1.4s;
@@ -182,23 +207,10 @@ body {
   animation-delay: .4s;
 }
 
-/* Scroll to top button animations */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .scroll-to-top {
   animation: slideIn 0.3s ease-out;
 }
 
-/* FAQ Accordion animations */
 .accordion-content-enter {
   opacity: 0;
   transform: translateY(-10px);
@@ -220,4 +232,3 @@ body {
   transform: translateY(-10px);
   transition: opacity 300ms, transform 300ms;
 }
-

@@ -292,6 +292,7 @@ export default function CustomPlan() {
                       {week.activities.map((activity, activityIndex) => (
                         <div key={activityIndex} className="border rounded-md p-3 mb-2">
                           <select 
+                            aria-label="Time of Day"
                             className="w-full rounded-md border border-gray-300 p-2 mb-2"
                             value={activity.timeOfDay}
                             onChange={(e) => {

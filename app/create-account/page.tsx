@@ -16,7 +16,7 @@ export default function CreateAccount() {
     email: '', // Initialize email as empty
   })
 
-  // ✅ Fetch `localStorage` value inside `useEffect` (Runs only in the browser)
+  // ✅ Fetch localStorage value inside useEffect (Runs only in the browser)
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
